@@ -17,9 +17,7 @@ public class BiwengerCalculator {
         System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-popup-blocking");
-        options.addArguments("disable-infobars");
-        options.addArguments("--disable-blink-features=AutomationControlled");
+
 
         WebDriver driver = new ChromeDriver(options);
 
@@ -33,7 +31,7 @@ public class BiwengerCalculator {
         yaTengoCuenta.click();
 
         Credentials credentials = new Credentials();
-        credentials.obtenerLogin();
+        credentials.autoLogin();
         driver.findElement(By.name("email")).sendKeys(credentials.getEmail());
         driver.findElement(By.name("password")).sendKeys(credentials.getPassword());
 
@@ -42,34 +40,52 @@ public class BiwengerCalculator {
 
         WebElement botonEquipos = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("i.icon.icon-prize.ng-star-inserted")));
         botonEquipos.click();
+
         WebElement anuncio = driver.findElement(By.xpath("/html/body/app-root/main/div/ng-component/ads"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.display='none';", anuncio);
+
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".loader-wrapper")));
-        WebElement botonMasDatos = driver.findElement(By.xpath("//*[@id=\"users\"]/league-detail-user-list/user-list/adv-list/div[2]/div/div/i[2]"));
-        botonMasDatos.click();
 
-        WebElement tablaDatosEquipos = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody")));
-        WebElement tbody = driver.findElement(By.cssSelector("tbody"));
+        WebElement elemento = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"users\"]/league-detail-user-list/user-list/adv-list/div[2]/div/div/i[2]")));
+        elemento.click();
 
-        // Encuentra todas las filas (tr) dentro del tbody
-        List<WebElement> rows = tbody.findElements(By.tagName("tr"));
+
+        WebElement tablaDatosEquipos = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody[_ngcontent-ng-c683283966]")));
+
+
+
 
         // Crea una lista para almacenar objetos Team
         List<Equipo> equipos = new ArrayList<>();
 
-        // Itera sobre cada fila
-        for (WebElement row : rows) {
-            // Extrae los datos de cada columna (td)
-            String position = row.findElement(By.cssSelector("user-position")).getText();
-            String name = row.findElement(By.cssSelector(".user-name a")).getText();
-            String points = row.findElement(By.cssSelector("td[aria-label*='puntos'] strong")).getText();
-            String value = row.findElement(By.cssSelector("td[aria-label*='Valor de Equipo']")).getText();
-            String players = row.findElement(By.cssSelector("td[aria-label*='Jugadores']")).getText();
-            String lastUpdate = row.findElement(By.cssSelector("time-relative")).getText();
 
-            // Crea un objeto Team y agrégalo a la lista
-            equipos.add(new Equipo(position, name, points, value, players, lastUpdate));
+        // Reintentar la extracción hasta un máximo de 5 veces
+        for (int i = 0; i < 5; i++) {
+            try {
+                // Encuentra todas las filas dentro del tbody
+                List<WebElement> rows = tablaDatosEquipos.findElements(By.tagName("tr"));
+
+                // Itera sobre cada fila
+                for (WebElement row : rows) {
+                    // Extrae los datos de cada columna (td)
+                    String name = row.findElement(By.cssSelector(".user-name a")).getText();
+                    String points = row.findElement(By.cssSelector("td[aria-label*='puntos']")).getText();
+                    String value = row.findElement(By.cssSelector("td[aria-label*='Valor de Equipo']")).getText();
+                    String players = row.findElement(By.cssSelector("td[aria-label*='Jugadores']")).getText();
+
+                    // Crea un objeto Equipo y añádelo a la lista
+                    Equipo equipo = new Equipo(name, points, value, players);
+                    equipos.add(equipo);
+                }
+
+                break; // Salir del bucle si el procesamiento fue exitoso
+            } catch (org.openqa.selenium.StaleElementReferenceException e) {
+                // Espera y vuelve a intentar si se produce un StaleElementReferenceException
+                System.out.println("StaleElementReferenceException: intentando de nuevo...");
+                tablaDatosEquipos = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody[_ngcontent-ng-c683283966]")));
+            }
         }
+
 
         // Imprime los equipos
         for (Equipo equipo : equipos) {
@@ -92,9 +108,10 @@ public class BiwengerCalculator {
 
 
 
-    */
 
 
+
+        }*/
         }
     }
 }

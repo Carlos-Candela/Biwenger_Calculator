@@ -30,5 +30,9 @@ public class Credentials {
     public String getPassword() {
         return password;
     }
+    public void autoLogin() {
+        this.email="lnecked@gmail.com";
+        this.password="Ca03101989";
+    }
 }
 
