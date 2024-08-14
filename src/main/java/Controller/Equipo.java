@@ -7,14 +7,24 @@ public class Equipo {
     private String value;
     private String players;
     private String lastUpdate;
+    private String valance;
 
-   public Equipo(String position, String name, String points, String value, String players, String lastUpdate) {
+    public String getValance() {
+        return valance;
+    }
+
+    public void setValance(String valance) {
+        this.valance = valance;
+    }
+
+    public Equipo(String position, String name, String points, String value, String players, String lastUpdate) {
         this.position = position;
         this.name = name;
         this.points = points;
         this.value = value;
         this.players = players;
         this.lastUpdate = lastUpdate;
+        this.valance = "0";
     }
 
 
@@ -75,6 +85,7 @@ public class Equipo {
                 ", value='" + value + '\'' +
                 ", players='" + players + '\'' +
                 ", lastUpdate='" + lastUpdate + '\'' +
+                ", valance='" + valance + '\'' +
                 '}';
     }
 }
