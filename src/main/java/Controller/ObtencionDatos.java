@@ -14,6 +14,10 @@ import java.util.List;
 
 public class ObtencionDatos {
 
+    static {
+        System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\drivers\\chromedriver.exe");
+
+    }
 
     WebDriver driver = new ChromeDriver();
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
