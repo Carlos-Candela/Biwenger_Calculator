@@ -31,7 +31,7 @@ public class BiwengerCalculator {
         yaTengoCuenta.click();
 
         Credentials credentials = new Credentials();
-        credentials.autoLogin();
+        credentials.obtenerLogin();
         driver.findElement(By.name("email")).sendKeys(credentials.getEmail());
         driver.findElement(By.name("password")).sendKeys(credentials.getPassword());
 

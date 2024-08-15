@@ -31,8 +31,8 @@ public class Credentials {
         return password;
     }
     public void autoLogin() {
-        this.email="lnecked@gmail.com";
-        this.password="Ca03101989";
+        this.email="@gmail.com";
+        this.password="";
     }
 }
 
