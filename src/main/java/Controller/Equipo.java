@@ -7,13 +7,13 @@ public class Equipo {
     private String value;
     private String players;
 
-    private String valance;
+    private int valance;
 
-    public String getValance() {
+    public int getValance() {
         return valance;
     }
 
-    public void setValance(String valance) {
+    public void setValance(int valance) {
         this.valance = valance;
     }
 
@@ -24,7 +24,7 @@ public class Equipo {
         this.value = value;
         this.players = players;
 
-        this.valance = "0";
+        this.valance = 0;
     }
 
 

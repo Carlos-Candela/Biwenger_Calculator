@@ -7,9 +7,12 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BiwengerCalculator {
     public static void main(String[] args) {
@@ -53,8 +56,6 @@ public class BiwengerCalculator {
         WebElement tablaDatosEquipos = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("tbody[_ngcontent-ng-c683283966]")));
 
 
-
-
         // Crea una lista para almacenar objetos Team
         List<Equipo> equipos = new ArrayList<>();
 
@@ -90,29 +91,43 @@ public class BiwengerCalculator {
         // Imprime los equipos
         for (Equipo equipo : equipos) {
             System.out.println(equipo.toString());
+        }
 
+        driver.navigate().to("https://biwenger.as.com/");
 
-        /*
         WebElement body = driver.findElement(By.tagName("body"));
 
-            boolean reinicio = true;
-            while (reinicio) {
-                try {
-                    WebElement reinicioLiga = driver.findElement(By.cssSelector("h3[_ngcontent-ng-c1543853168]"));
-                    if (reinicioLiga.isDisplayed()) {
-                        reinicio = false;
-                    }
-                } catch (Exception e) {
-                    body.sendKeys(Keys.PAGE_DOWN);
+
+        boolean reinicio = true;
+        while (reinicio) {
+            try {
+                WebElement reinicioLiga = driver.findElement(By.cssSelector("div.content.leagueReset"));
+                if (reinicioLiga.isDisplayed()) {
+                    reinicio = false;
                 }
-
-
-
-
-
-
-        }*/
+            } catch (Exception e) {
+                body.sendKeys(Keys.PAGE_DOWN);
+            }
         }
+
+        //Busca la cantidad inicial de dinero de la liga en el tablón.
+        WebElement reinicioLiga = driver.findElement(By.cssSelector("div.content.leagueReset"));
+        String dineroInicial = reinicioLiga.getText();
+
+
+        // Expresión regular para encontrar uno o más dígitos
+
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(dineroInicial);
+
+        while(matcher.find()){;
+
+        String cantidadInicial = matcher.group();
+        int cantInicialEntero = 1000000*(Integer.parseInt(cantidadInicial));
+        System.out.println(cantInicialEntero);
+
+        }
+
     }
 }
 
