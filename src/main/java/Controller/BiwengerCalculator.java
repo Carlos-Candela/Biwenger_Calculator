@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.SQLOutput;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +120,7 @@ public class BiwengerCalculator {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(dineroInicial);
 
-        while(matcher.find()){;
+        while(matcher.find()){
 
         String cantidadInicial = matcher.group();
         int cantInicialEntero = 1000000*(Integer.parseInt(cantidadInicial));
