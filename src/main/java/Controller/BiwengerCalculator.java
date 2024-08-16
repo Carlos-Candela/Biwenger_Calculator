@@ -126,6 +126,10 @@ public class BiwengerCalculator {
         int cantInicialEntero = 1000000*(Integer.parseInt(cantidadInicial));
         System.out.println(cantInicialEntero);
 
+        for(Equipo eq: equipos){
+            eq.setBalance(cantInicialEntero);
+        }
+
         }
 
     }

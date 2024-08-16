@@ -7,14 +7,21 @@ public class Equipo {
     private String value;
     private String players;
 
-    private int valance;
-
-    public int getValance() {
-        return valance;
+    public int getPujaMaxima() {
+        return pujaMaxima;
     }
 
-    public void setValance(int valance) {
-        this.valance = valance;
+    public int getBalance() {
+        return balance;
+    }
+
+    private int pujaMaxima;
+    private int balance;
+
+
+
+    public void setBalance(int valance) {
+        this.balance = valance;
     }
 
     public Equipo(String name, String points, String value, String players) {
@@ -24,7 +31,7 @@ public class Equipo {
         this.value = value;
         this.players = players;
 
-        this.valance = 0;
+        this.balance = 0;
     }
 
 
@@ -76,8 +83,8 @@ public class Equipo {
                 ", points='" + points + '\'' +
                 ", value='" + value + '\'' +
                 ", players='" + players + '\'' +
-
-                ", valance='" + valance + '\'' +
+                ", valance='" + pujaMaxima + '\'' +
+                ", valance='" + balance + '\'' +
                 '}';
     }
 }
